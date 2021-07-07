@@ -42,17 +42,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 enum CATEGORY {
-    STOCK_STATEMENT("STOCK STATEMENT"),
-    DEBTORS_STATEMENT("DEBTORS STATEMENT"),
-    CREDITORS_STATEMENT("CREDITORS STATEMENT"),
-    STOCK_INSURANCE("STOCK INSURANCE"),
-    FINANCIAL_STATEMENT("FINANCIAL STATEMENT"),
-    CC_AC_STATEMENT("CC A/C STATEMENT"),
-    LAST_3_MONTH_STATEMENT("STOCK ST LAST 3 MONTH"),
-    BUSINESS_PROFILE("BUSINESS PROFILE"),
-    MOM_SALES("MOM SALES"),
-    SANCTION_LETTERS("SANCTION LETTER"),
-    OTHERS("OTHERS");
+    STOCK_STATEMENT("STOCK STATEMENT");
 
     private String category;
     CATEGORY(String category) {
@@ -63,10 +53,7 @@ enum CATEGORY {
 
 public class DocumentCategoryActivity extends AppCompatActivity {
 
-    CardView card_stock_statement,card_debtors_statement,card_creditors_statement,card_stock_insurance,
-            card_financial_statement,card_cc_ac_statement,card_stock_st_last_3_month,card_business_profile,
-            card_mom_sales,card_sanction_letter,card_others;
-    Toolbar toolbar;
+    CardView card_stock_statement;
     AlertDialog progressDialog;
     SaveCustomerAuditRequest customerInfo;
     String category;
@@ -76,7 +63,6 @@ public class DocumentCategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_document_category );
-        initializeToolBar();
         initializeView();
         CustomProgressBar customProgressBar = new CustomProgressBar( this );
         progressDialog = customProgressBar.initializeLoader();
@@ -98,45 +84,10 @@ public class DocumentCategoryActivity extends AppCompatActivity {
         return true;
     }
 
-    private void initializeToolBar() {
-        toolbar = findViewById(R.id.app_toolbar);
-        TextView lbl_heading = (TextView) findViewById( R.id.lbl_heading );
-        lbl_heading.setText( getResources().getText( R.string.header_upload_photo ) );
-        setSupportActionBar(toolbar);
-        ActionBar ab = getSupportActionBar();
-        if (ab != null) {
-
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_white_24dp);
-
-        }
-    }
 
     private void initializeView() {
         card_stock_statement = findViewById( R.id.card_stock_statement );
-        card_debtors_statement = findViewById( R.id.card_debtors_statement );
-        card_creditors_statement = findViewById( R.id.card_creditors_statement );
-        card_stock_insurance = findViewById( R.id.card_stock_insurance );
-        card_financial_statement = findViewById( R.id.card_financial_statement );
-        card_cc_ac_statement = findViewById( R.id.card_cc_ac_statement );
-        card_stock_st_last_3_month = findViewById( R.id.card_stock_st_last_3_month );
-        card_business_profile = findViewById( R.id.card_business_profile );
-        card_mom_sales = findViewById( R.id.card_mom_sales );
-        card_sanction_letter = findViewById( R.id.card_sanction_letter );
-        card_others = findViewById( R.id.card_others );
-
         card_stock_statement.setOnClickListener( new CardStockStatementClickListener() );
-        card_debtors_statement.setOnClickListener( new CardDebtorsStatementClickListener() );
-        card_creditors_statement.setOnClickListener( new CardCreditorsStatementClickListener() );
-        card_stock_insurance.setOnClickListener( new CardStockInsuranceClickListener() );
-        card_financial_statement.setOnClickListener( new CardFinancialStatementClickListener() );
-        card_cc_ac_statement.setOnClickListener( new CardCCACStatementClickListener() );
-        card_stock_st_last_3_month.setOnClickListener( new CardLast3MonthStatementClickListener() );
-        card_business_profile.setOnClickListener( new CardBusinessProfileClickListener() );
-        card_mom_sales.setOnClickListener( new CardMOMSalesClickListener() );
-        card_sanction_letter.setOnClickListener( new CardSanctionLetterClickListener() );
-        card_others.setOnClickListener( new CardOthersClickListener() );
     }
 
     private class CardStockStatementClickListener implements View.OnClickListener {
@@ -147,85 +98,7 @@ public class DocumentCategoryActivity extends AppCompatActivity {
         }
     }
 
-    private class CardDebtorsStatementClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            createIntentToPickFile();
-            category = CATEGORY.DEBTORS_STATEMENT.getCategory();
-        }
-    }
-
-    private class CardCreditorsStatementClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            createIntentToPickFile();
-            category = CATEGORY.CREDITORS_STATEMENT.getCategory();
-        }
-    }
-
-    private class CardStockInsuranceClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            createIntentToPickFile();
-            category = CATEGORY.STOCK_INSURANCE.getCategory();
-        }
-    }
-
-    private class CardFinancialStatementClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            createIntentToPickFile();
-            category = CATEGORY.FINANCIAL_STATEMENT.getCategory();
-        }
-    }
-
-    private class CardCCACStatementClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            createIntentToPickFile();
-            category = CATEGORY.CC_AC_STATEMENT.getCategory();
-        }
-    }
-
-    private class CardLast3MonthStatementClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            createIntentToPickFile();
-            category = CATEGORY.LAST_3_MONTH_STATEMENT.getCategory();
-        }
-    }
-
-    private class CardBusinessProfileClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            createIntentToPickFile();
-            category = CATEGORY.BUSINESS_PROFILE.getCategory();
-        }
-    }
-
-    private class CardMOMSalesClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            createIntentToPickFile();
-            category = CATEGORY.MOM_SALES.getCategory();
-        }
-    }
-
-    private class CardSanctionLetterClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            createIntentToPickFile();
-            category = CATEGORY.SANCTION_LETTERS.getCategory();
-        }
-    }
-
-    private class CardOthersClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            createIntentToPickFile();
-            category = CATEGORY.OTHERS.getCategory();
-        }
-    }
+    
 
     private void createIntentToPickFile() {
         Intent takeVideoIntent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -240,11 +113,13 @@ public class DocumentCategoryActivity extends AppCompatActivity {
                 if (result.getResultCode() == Activity.RESULT_OK) {
                     Intent data = result.getData();
                     Uri selectedImageUri = data.getData();
+                    // GET FILE MIME TYPE
                     String mimeType = getContentResolver().getType(selectedImageUri);
                     Cursor returnCursor =
                             getContentResolver().query(selectedImageUri, null, null, null, null);
                     int nameIndex = returnCursor.getColumnIndex( OpenableColumns.DISPLAY_NAME);
                     returnCursor.moveToFirst();
+                    // GET FILE NAME
                     Log.e("File Name is :: ",returnCursor.getString(nameIndex));
                     String fileName = returnCursor.getString(nameIndex);
                     returnCursor.close();
@@ -253,6 +128,7 @@ public class DocumentCategoryActivity extends AppCompatActivity {
                     String selectedImagePath = Util.getPathFromURI(getApplicationContext(),selectedImageUri);
                     File videoFile = new File(selectedImagePath);
 
+                    // CALL UPLOAD FILE FUNCTION
                     uploadFile(videoFile,fileName,category,mimeType,selectedImageUri);
                 }
             } );
@@ -260,6 +136,7 @@ public class DocumentCategoryActivity extends AppCompatActivity {
 
     private void uploadFile(File filePath, String fileName, String category, String mimeType, Uri selectedImageUri) {
         progressDialog.show();
+        //INSTEAD OF RequestBody.create USE InputStreamRequestBody FOR FILE
         RequestBody requestBody = new InputStreamRequestBody( MediaType.parse( mimeType ),getContentResolver(),selectedImageUri);
         RequestBody uploadedBy = RequestBody.create( MediaType.parse( "text/plain" ), SharedPreference.getData(getApplicationContext() , Constant.USERID ) );
         RequestBody auditId = RequestBody.create( MediaType.parse( "text/plain" ), String.valueOf( customerInfo.getAuditId()) );
